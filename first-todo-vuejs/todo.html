@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>To Do</title>
+    <link rel="stylesheet" href="css/materialize.css">
+    <link rel="stylesheet" href="css/main.css">
+    <script src="js/materialize.min.js"></script>
+    <script src="js/vue.js"></script>
+</head>
+<body>
+
+    <div id="vue-app">
+        <div class="container z-depth-1">
+            <ul class="collection with-header">
+                <li class="collection-header teal lighten-5">
+                    <div class="row" style="margin-bottom: 0;">
+                        <div class="col s10">
+                            <div class="input-field">
+                                <input id="to-do-text" type="text"
+                                    v-model.trim="toDoText"
+                                >
+                                <label for="to-do-text">Введите текст</label>
+                            </div>
+                        </div>
+                        <div class="col s2" style="margin-top: 20px;">
+                            <div class="btn-floating btn-small waves-effect waves-light"
+                                @click="addToDoItem"
+                            >
+                                <i class="material-icons">add</i>
+                            </div>
+                        </div>                   
+                    </div>
+                </li>
+                <li class="collection-item"
+                    v-for="(toDoItem, i) in toDoList"
+                >
+                    <div>{{ toDoItem }}
+                        <div class="secondary-content"
+                            @click="delToDoItem(i)"
+                        >
+                            <i class="material-icons">clear</i>
+                        </div>                        
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <script>
+
+let
+    vueApp = new Vue({
+        el: '#vue-app',
+        data: {
+            toDoList: ['Элемент списка 1', 'Элемент списка 2'],
+            toDoText: ''
+        },
+        methods: {
+            addToDoItem()
+            {
+                if ( this.toDoText != '' )
+                {
+                    this.toDoList.push(this.toDoText);
+
+                    this.toDoText = '';
+                }
+                else
+                {
+                    M.toast({html: 'Введите хотя бы 1 символ!'});
+                }
+            },
+            delToDoItem( itemIndex )
+            {
+                this.toDoList.splice(itemIndex, 1);
+            }
+        }
+    });
+
+    </script>
+</body>
+</html>

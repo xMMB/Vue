@@ -1,0 +1,7 @@
+.secondary-content {
+    cursor: pointer;
+}
+
+.secondary-content .material-icons {
+    user-select: none;
+}
